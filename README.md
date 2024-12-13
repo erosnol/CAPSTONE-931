@@ -163,7 +163,7 @@ A big thank you to everyone who contributed ideas, feedback, and support for thi
 
 For any questions, feedback, or support, feel free to reach out:
 
-- **Repository Owner**: [Erosnol](mailto:erosnol@example.com)
+- **Repository Owner**: [Erosnol](mailto:erosnolasco@protonmail.com)
 - **GitHub**: [CAPSTONE-931](https://github.com/erosnol/CAPSTONE-931)
 
 We appreciate your interest in CAPSTONE-931 and look forward to your contributions!
