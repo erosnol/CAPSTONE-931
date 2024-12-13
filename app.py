@@ -18,50 +18,73 @@ parser = StrOutputParser()
 # tools = [search] # add tools to the list
 
 # Page Header
-st.title("Assistant Agent")
+st.title(" Sales Assistant Agent")
 st.markdown("Assistant Agent Powered by Groq.")
 
+# Sidebar for settings
+st.sidebar.header("Settings")
+temperature = st.sidebar.slider(
+    label="Model Temperature",
+    min_value=0.0,
+    max_value=1.0,
+    value=0.7,
+    step=0.1,
+    help="Adjust the temperature to control the randomness of the model's outputs. Lower values produce more deterministic results."
+)
 
+# Display the selected temperature value for confirmation
+st.sidebar.markdown(f"**Current Temperature:** {temperature}")
 
 # Data collection/inputs
 with st.form("company_info", clear_on_submit=False):
 
-    product_name = st.text_input("**Product Name** (What product are you trying to sell?):")
-    
+    product_name = st.text_input(
+    label="**Product Name**:",
+    placeholder="Enter the product name you are selling"
+    )
+
     company_url = st.text_input(
-        "**Company URL** (The URL of the company you are targeting):"
+        label="**Company URL**:",
+        placeholder="Enter the company URL (e.g., www.company.com)"
     )
-    
+
     product_category = st.text_input(
-        "**Product Category** (e.g., 'Data Warehousing' or 'Cloud Data Platform')"
+        label="**Product Category**:",
+        placeholder="Enter the product category (e.g., 'Gaming Chair', 'Cloud Storage')"
     )
-    
-    competitors_url = st.text_input("**Competitors URL** (ex. www.apple.com) Separated by comma.:")
-    
+
+    competitors_url = st.text_input(
+        label="**Competitors URL**:",
+        placeholder="Enter competitor URLs separated by commas (e.g., www.apple.com, www.samsung.com)"
+    )
+
     value_proposition = st.text_input(
-        "**Value Proposition** (A sentence summarizing the product’s value):"
+        label="**Value Proposition**:",
+        placeholder="A sentence summarizing the product’s value"
     )
-    
+
     target_customer = st.text_input(
-        "**Target Customer** (Name of the person you are trying to sell to. Target audience.) :"
+        label="**Target Customer**:",
+        placeholder="Enter the target customer or audience"
     )
-    
+
     # Product Analytics title
-    st.markdown("### Product Analytics")
+    st.markdown("### Specific Product Analysis")
+    st.markdown("<small>Provides a product business forecast.</small>", unsafe_allow_html=True)
 
-    # Scrapes top products and lists Brand name, rating, cost and product features
     amazon_best_sellers = st.text_input(
-        "**Amazon Best Sellers URL** (Provide an Amazon URL to scrape the top 5 products. Filter by Best Selling first or to liking.):"
+        label="**Amazon Best Sellers URL**:",
+        placeholder="Enter an Amazon URL to scrape best sellers"
     )
 
-    # Scrapes Google Trends data given any searched term and provides insights 
     google_trends_review = st.text_input(
-        "**Google Trends URL** (Provide a Google Trends URL to scrape trends data.):"
+        label="**Google Trends URL**:",
+        placeholder="Enter a Google Trends URL for trends data"
     )
 
-    # Scrapes a Googled Search, preferably news related 
     googled_news_search = st.text_input(
-        "**Google News URL** (Provide a Google News URL to scrape the latest news. Search under Google News tab):"
+        label="**Google News URL**:",
+        placeholder="Enter a Google News URL for the latest news"
     )
 
     # Optional title
@@ -72,11 +95,15 @@ with st.form("company_info", clear_on_submit=False):
 
     # Extra data source to scrape data
     data_source_url = st.text_input(
-        "**Additional Data Source URL** (Provides a summarized insight into the provided URL.):"
+        label="**Additional Data Source URL**",
+        placeholder="Provides a summarized insight into the provided URL"
     )
 
     # Feedback
-    feedback = st.text_area("**Feedback** (Please provide any additional feedback or comments to improve results):")
+    feedback = st.text_area(
+        label="**Feedback**",
+        placeholder="Please provide any additional feedback or comments to improve results"
+    )
 
     # For the llm insights result
     company_insights = ""
@@ -97,7 +124,7 @@ with st.form("company_info", clear_on_submit=False):
                 You are a business assistant agent tasked with generating a one-page summary to assist a sales representative in gaining insights about a prospective account. 
                 Based on the inputs and additional data provided, your goal is to create a detailed and actionable report. 
                 Avoid assumptions or statements that are not backed by data.
-                Reflect diverse perspectives and cross-verify data when possible
+                Reflect diverse perspectives and cross-verify data when possible.
                 Use the following structure:
 
                 ### Inputs:
@@ -133,8 +160,8 @@ with st.form("company_info", clear_on_submit=False):
                 - Identify key decision-makers (e.g., CEO, CTO) and summarize relevant public statements or initiatives tied to the product category.
 
                 4. **Product/Strategy Summary**:
-                - Understand the specific characteristics of the ideal customer. Create a bar graph on findings.
-                - 
+                - Understand the specific characteristics of the ideal customer. Create a table with findings.
+                -  Give suggestions on where the company can sell the product (sales channels).
 
                 5. **Suggestions for Positioning**:
                 - Provide recommendations for how the product can align with the company’s strategy and address the target customer’s pain points.
