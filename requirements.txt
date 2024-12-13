@@ -2,9 +2,4 @@ streamlit
 langchain
 langchain_community
 langchain_groq
-requests
-beautifulsoup4
-pandas
-matplotlib
-openai
-io
+
