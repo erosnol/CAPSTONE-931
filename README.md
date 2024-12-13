@@ -1,4 +1,4 @@
-# **CAPSTONE-931: Sales Assistant Agent**
+# **Sales Assistant Agent**
 
 Sales Assistant Agent application powered by advanced AI technologies such as LangChain and Groq. It provides businesses with actionable insights by analyzing product data, market trends, and competitor information. This agent is designed to assist sales representatives in strategizing and optimizing their sales efforts through automated and data-driven analysis.
 
