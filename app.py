@@ -8,8 +8,6 @@ from bs4 import BeautifulSoup
 import pandas as pd
 import matplotlib.pyplot as plt
 
-
-
 # Model and Agent tools
 llm = ChatGroq(api_key=st.secrets.get("GROQ_API_KEY"))
 
@@ -17,6 +15,13 @@ search = TavilySearchResults(max_results=2)
 parser = StrOutputParser()
 # tools = [search] # add tools to the list
 
+# Set the page configuration
+st.set_page_config(
+    page_title="Sales Assistant Agent",  # Tab title
+    page_icon="💼",  # Optional: Emoji or URL for the favicon
+    layout="centered",  # Optional: Layout can be "centered" or "wide"
+    initial_sidebar_state="expanded"  # Optional: Sidebar starts expanded or collapsed
+)
 # Page Header
 st.title(" Sales Assistant Agent")
 st.markdown("Assistant Agent Powered by Groq.")
@@ -34,7 +39,6 @@ selected_groq_model = st.sidebar.selectbox(
     help="Choose a Groq model for processing tasks."
 )
 
-
 temperature = st.sidebar.slider(
     label="Model Temperature",
     min_value=0.0,
@@ -43,7 +47,6 @@ temperature = st.sidebar.slider(
     step=0.1,
     help="Adjust the temperature to control the randomness of the model's outputs. Lower values produce more deterministic results."
 )
-
 
 st.sidebar.markdown("---")
 
@@ -62,7 +65,7 @@ st.sidebar.markdown(
     <div style="display: flex; align-items: center;">
         <a href="https://github.com/erosnol/CAPSTONE-931" target="_blank" style="text-decoration: none; display: flex; align-items: center;">
             <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="GitHub Logo" width="25" style="margin-right: 10px;">
-            <span style="font-size: 16px; color: black;">GitHub Repository</span>
+            <span style="font-size: 16px; color: white;">GitHub Repository</span>
         </a>
     </div>
     """,
@@ -97,7 +100,6 @@ with st.sidebar.expander("Provide Feedback"):
         # Process or save the feedback and rating here
         print(f"Feedback: {feedback}")
         print(f"Rating: {star_rating} stars")
-
 
 # Data collection/inputs
 with st.form("company_info", clear_on_submit=False):
@@ -175,8 +177,6 @@ with st.form("company_info", clear_on_submit=False):
                 # Use search tool to get Company Information
                 company_information = search.invoke(company_url)
                 print(company_information)
-
-
 
                 # TODO: Create prompt <=================
                 prompt = """
@@ -272,11 +272,7 @@ with st.form("company_info", clear_on_submit=False):
                 8. ### Closing Statement:
                 - Conclude the report with a persuasive note highlighting the product’s competitive edge. 
                 - Use persuasive language and call-to-action phrases in the closing statement
-
-                Close the analysis with:  
-                Best Regards,  
-                Sales Agent   
-
+  
 
                 """
 
@@ -302,5 +298,14 @@ with st.form("company_info", clear_on_submit=False):
                         "googled_news_search": googled_news_search
                     }
                 )
-
+# Display the insights and download button outside the form
+if company_insights:
     st.markdown(company_insights)
+
+    # Create a download button for the report
+    st.download_button(
+        label="Download Report",
+        data=company_insights,
+        file_name="report.txt",
+        mime="text/plain"
+    )
