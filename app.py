@@ -101,37 +101,76 @@ with st.sidebar.expander("Provide Feedback"):
         print(f"Feedback: {feedback}")
         print(f"Rating: {star_rating} stars")
 
+# Align the toggle to the right using HTML and CSS
+st.markdown(
+    """
+    <style>
+    .right-align {
+        display: flex;
+        justify-content: flex-end;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
+# Create a container for the toggle button
+with st.container():
+    st.markdown('<div class="right-align">', unsafe_allow_html=True)
+    demo_mode = st.checkbox("Use Demo Inputs")
+    st.markdown('</div>', unsafe_allow_html=True)
+
+
+# Define demo inputs
+demo_inputs = {
+    "product_name": "gaming chair",
+    "company_url": "https://store.hermanmiller.com/gaming-view-all?lang=en_US",
+    "product_category": "Office supplies",
+    "competitors_url": "https://www.ewinracing.com, https://xrockergaming.com, www.razer.com, https://secretlab.co, https://www.vertagear.com/, https://www.noblechairs.com, https://www.dxracer.com, https://www.mavix.com/, https://subsonic.com/, https://www.andaseat.com/",
+    "value_proposition": "a high quality 3D enhanced gaming chair for gamers with speakers, surround sound, vibrations, cupholder and Siri/Alex compatibility, priced at $399.",
+    "target_customer": "Gamers",
+    "amazon_best_sellers": "https://www.amazon.com/s?k=gaming+chairs&i=garden&rh=n%3A1055398%2Cp_72%3A1248915011&s=exact-aware-popularity-rank&dc&ds=v1%3AHBaNLpw8vi94y9a3WBIfMjSgF2VSI48owFQHB87fFyc&crid=ZXF6209QI6R1&qid=1734017332&rnid=1248913011&sprefix=gaming+chairs%2Caps%2C229&ref=sr_nr_p_72_1",
+    "google_trends_review": "https://trends.google.com/trends/explore?geo=US&q=gaming%20chairs",
+    "googled_news_search": "https://www.google.com/search?q=gaming+chairs&sca_esv=fa27aa6c1a2c9000&biw=1447&bih=750&tbm=nws&sxsrf=ADLYWIJUjMkXLxpbPMvQbSzpTvG02xCp5w%3A1734025867585&ei=iyJbZ9noIpydkPIPnqz0uQ0&ved=0ahUKEwiZ2vje5aKKAxWcDkQIHR4WPdcQ4dUDCA4&uact=5&oq=gaming+chairs&gs_lp=Egxnd3Mtd2l6LW5ld3MiDWdhbWluZyBjaGFpcnMyCxAAGIAEGLEDGIMBMgUQABiABDIFEAAYgAQyBRAAGIAEMgUQABiABDIFEAAYgAQyBRAAGIAEMgUQABiABDIFEAAYgAQyBRAAGIAESJYRUJAGWNMPcAJ4AJABAJgBZqAB3AaqAQQxMy4xuAEDyAEA-AEBmAIQoAL_BsICEBAAGIAEGLEDGEMYgwEYigXCAggQABiABBixA8ICChAAGIAEGEMYigXCAg0QABiABBixAxhDGIoFwgIOEAAYgAQYsQMYgwEYigXCAg0QABiABBixAxiDARgKwgIKEAAYgAQYsQMYCpgDAIgGAZIHBDE1LjGgB_FQ&sclient=gws-wiz-news"
+}
+
 # Data collection/inputs
 with st.form("company_info", clear_on_submit=False):
 
     product_name = st.text_input(
-    label="**Product Name**:",
-    placeholder="Enter the product name you are selling"
+        label="**Product Name**:",
+        placeholder="Enter the product name you are selling",
+        value=demo_inputs["product_name"] if demo_mode else ""
     )
 
     company_url = st.text_input(
         label="**Company URL**:",
-        placeholder="Enter the company URL (e.g., www.company.com)"
+        placeholder="Enter the company URL (e.g., www.company.com)",
+        value=demo_inputs["company_url"] if demo_mode else ""
     )
 
     product_category = st.text_input(
         label="**Product Category**:",
-        placeholder="Enter the product category (e.g., 'Gaming Chair', 'Cloud Storage')"
+        placeholder="Enter the product category (e.g., 'Gaming Chair', 'Cloud Storage')",
+        value=demo_inputs["product_category"] if demo_mode else ""
     )
 
     competitors_url = st.text_input(
         label="**Competitors URL**:",
-        placeholder="Enter competitor URLs separated by commas (e.g., www.apple.com, www.samsung.com)"
+        placeholder="Enter competitor URLs separated by commas (e.g., www.apple.com, www.samsung.com)",
+        value=demo_inputs["competitors_url"] if demo_mode else ""
     )
 
     value_proposition = st.text_input(
         label="**Value Proposition**:",
-        placeholder="A sentence summarizing the product’s value"
+        placeholder="A sentence summarizing the product’s value",
+        value=demo_inputs["value_proposition"] if demo_mode else ""
     )
 
     target_customer = st.text_input(
         label="**Target Customer**:",
-        placeholder="Enter the target customer or audience"
+        placeholder="Enter the target customer or audience",
+        value=demo_inputs["target_customer"] if demo_mode else ""
     )
 
     # Product Analytics title
@@ -140,17 +179,20 @@ with st.form("company_info", clear_on_submit=False):
 
     amazon_best_sellers = st.text_input(
         label="**Amazon Best Sellers URL**:",
-        placeholder="Enter an Amazon URL to scrape best sellers"
+        placeholder="Enter an Amazon URL to scrape best sellers",
+        value=demo_inputs["amazon_best_sellers"] if demo_mode else ""
     )
 
     google_trends_review = st.text_input(
         label="**Google Trends URL**:",
-        placeholder="Enter a Google Trends URL for trends data"
+        placeholder="Enter a Google Trends URL for trends data",
+        value=demo_inputs["google_trends_review"] if demo_mode else ""
     )
 
     googled_news_search = st.text_input(
         label="**Google News URL**:",
-        placeholder="Enter a Google News URL for the latest news"
+        placeholder="Enter a Google News URL for the latest news",
+        value=demo_inputs["googled_news_search"] if demo_mode else ""
     )
 
     # Optional title
