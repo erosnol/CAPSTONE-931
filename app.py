@@ -22,7 +22,19 @@ st.title(" Sales Assistant Agent")
 st.markdown("Assistant Agent Powered by Groq.")
 
 # Sidebar for settings
-st.sidebar.header("Settings")
+st.sidebar.markdown(
+    "<h2 style='font-size: 24px;'>Settings</h2>", 
+    unsafe_allow_html=True
+)
+
+# Dropdown to select Groq AI model
+selected_groq_model = st.sidebar.selectbox(
+    label="Select Groq Model",
+    options=["Groq-8x7B", "Groq-8x13B", "Groq-Mixtral", "Groq-LLM"],
+    help="Choose a Groq model for processing tasks."
+)
+
+
 temperature = st.sidebar.slider(
     label="Model Temperature",
     min_value=0.0,
@@ -32,8 +44,60 @@ temperature = st.sidebar.slider(
     help="Adjust the temperature to control the randomness of the model's outputs. Lower values produce more deterministic results."
 )
 
-# Display the selected temperature value for confirmation
-st.sidebar.markdown(f"**Current Temperature:** {temperature}")
+
+st.sidebar.markdown("---")
+
+# Add Google Trends link with icon
+# Resources Section
+st.sidebar.markdown("### Resources")
+st.sidebar.markdown("[Google Trends](https://trends.google.com/)")
+st.sidebar.markdown("[Google News](https://news.google.com/)")
+st.sidebar.markdown("[Amazon](https://www.amazon.com/)")
+
+st.sidebar.markdown("---")
+
+# Add GitHub link with icon in the sidebar
+st.sidebar.markdown(
+    """
+    <div style="display: flex; align-items: center;">
+        <a href="https://github.com/erosnol/CAPSTONE-931" target="_blank" style="text-decoration: none; display: flex; align-items: center;">
+            <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="GitHub Logo" width="25" style="margin-right: 10px;">
+            <span style="font-size: 16px; color: black;">GitHub Repository</span>
+        </a>
+    </div>
+    """,
+    unsafe_allow_html=True
+)
+
+# Feedback Section at the Bottom
+st.sidebar.markdown("---")  # Divider for better visual separation
+with st.sidebar.expander("Provide Feedback"):
+    
+    
+    # Feedback Text Input
+    feedback = st.text_area(
+        label="Feedback:",
+        placeholder="Please provide any additional feedback or comments to improve results."
+    )
+    
+    # 5-Star Rating System
+    star_rating = st.slider(
+        label="Rate the experience:",
+        min_value=1,
+        max_value=5,
+        value=5,
+        step=1,
+        format="%d stars",
+        help="Rate the application from 1 (poor) to 5 (excellent)."
+    )
+    
+    # Feedback Submit Button
+    if st.button("Submit Feedback"):
+        st.success("Thank you for your feedback!")
+        # Process or save the feedback and rating here
+        print(f"Feedback: {feedback}")
+        print(f"Rating: {star_rating} stars")
+
 
 # Data collection/inputs
 with st.form("company_info", clear_on_submit=False):
@@ -98,12 +162,7 @@ with st.form("company_info", clear_on_submit=False):
         label="**Additional Data Source URL**",
         placeholder="Provides a summarized insight into the provided URL"
     )
-
-    # Feedback
-    feedback = st.text_area(
-        label="**Feedback**",
-        placeholder="Please provide any additional feedback or comments to improve results"
-    )
+    
 
     # For the llm insights result
     company_insights = ""
