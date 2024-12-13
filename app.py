@@ -101,25 +101,8 @@ with st.sidebar.expander("Provide Feedback"):
         print(f"Feedback: {feedback}")
         print(f"Rating: {star_rating} stars")
 
-# Align the toggle to the right using HTML and CSS
-st.markdown(
-    """
-    <style>
-    .right-align {
-        display: flex;
-        justify-content: flex-end;
-    }
-    </style>
-    """,
-    unsafe_allow_html=True
-)
-
-# Create a container for the toggle button
-with st.container():
-    st.markdown('<div class="right-align">', unsafe_allow_html=True)
-    demo_mode = st.checkbox("Use Demo Inputs")
-    st.markdown('</div>', unsafe_allow_html=True)
-
+# Toggle for demo mode
+demo_mode = st.checkbox("Use Demo Inputs")
 
 # Define demo inputs
 demo_inputs = {
